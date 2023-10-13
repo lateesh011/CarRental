@@ -1,0 +1,107 @@
+CREATE DATABASE CarRentalEntities
+
+USE CarRentalEntities
+
+
+SET ANSI_NULLS ON
+GO
+
+ 
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ 
+
+CREATE TABLE [dbo].[admin](
+	[Username] [varchar](50) NULL,
+	[Password] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+ 
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ 
+
+CREATE TABLE [dbo].[Customer](
+	[Customerid] [int] NOT NULL,
+	[CustomerName] [varchar](50) NULL,
+	[mail] [varchar](50) NULL,
+	[Password] [varchar](50) NULL,
+	[LoyaltyPoints] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Customerid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+ 
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ 
+
+CREATE TABLE [dbo].[Car](
+	[Carid] [int] NOT NULL,
+	[Carname] [varchar](40) NULL,
+	[Cartype] [varchar](40) NULL,
+	[PerDayCharge] [int] NULL,
+	[ChargePerKm] [int] NULL,
+	[Available] [varchar](20) NULL,
+	[Photo] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Carid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ 
+ 
+ SET ANSI_NULLS ON
+GO
+
+ 
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ 
+
+CREATE TABLE [dbo].[CarRent](
+	[RentId] [int] NOT NULL,
+	[Carid] [int] NULL,
+	[Customerid] [int] NULL,
+	[RentOrderDate] [datetime] NULL,
+	[OdoReading] [int] NULL,
+	[ReturnOdoReading] [int] NULL,
+	[Licensenumber] [varchar](50) NULL,
+	[ReturnDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ 
+
+ALTER TABLE [dbo].[CarRent]  WITH CHECK ADD FOREIGN KEY([Carid])
+REFERENCES [dbo].[Car] ([Carid])
+GO
+
+ 
+
+ALTER TABLE [dbo].[CarRent]  WITH CHECK ADD FOREIGN KEY([Customerid])
+REFERENCES [dbo].[Customer] ([Customerid])
+GO
